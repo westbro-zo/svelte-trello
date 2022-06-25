@@ -11,7 +11,9 @@ import svelte from 'rollup-plugin-svelte';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
-// import preprocess from 'svelte/types/compiler/preprocess';
+
+// external
+import sveltePreprocess from 'svelte-preprocess';
 
 // rollup 이 동작할 때 현재 환경이 개발모드인지 제품모드인지 판단하는 변수
 // Rollup Watch가 켜져 있으면 '개발모드'로 판단.
@@ -68,19 +70,19 @@ export default {
 				dev: !production
 			},
 			// 전처리 옵션을 지정.
-			// preprocess: sveltePreprocss({
-			// 	scss: {
-			// 		// 전역에서 사용할 scss 파일을 지정.
-			// 		prependData: '@import "./src/scss/main.scss";',
-			// 	},
-			// }),
-			// component가 해석되고 css 결과가 나온 후, 후처리에 대한 옵션
-			// autoprefixer는 css에 자동으로 벤더 프리픽스를 적용한다. -ms- -webkit-
-			postcss: {
-				plugins: [
-					require('autoprefixer')() // 가지고 오자마자 실행
-				]
-			}
+			preprocess: sveltePreprocess({
+				scss: {
+					// 전역에서 사용할 scss 파일을 지정.
+					prependData: '@import "./src/scss/main.scss";',
+				},
+				// component가 해석되고 css 결과가 나온 후, 후처리에 대한 옵션
+				// autoprefixer는 css에 자동으로 벤더 프리픽스를 적용한다. -ms- -webkit-
+				postcss: {
+					plugins: [
+						require('autoprefixer')() // 가지고 오자마자 실행
+					]
+				}
+			}),
 		}),
 		// we'll extract any component CSS out into
 		// a separate file - better for performance
