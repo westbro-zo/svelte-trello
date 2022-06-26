@@ -1,5 +1,17 @@
+<script>
+	import { setUnsplashRandomImage } from '~/api';
+
+    function changeBackground() {
+        setUnsplashRandomImage()
+    }
+</script>
+
 <header>
-    <img src="/images/trello-logo.svg" alt="Trello logo" class="logo">
+    <img
+        src="/images/trello-logo.svg"
+        alt="Trello logo"
+        class="logo"
+        on:click={changeBackground}>
 </header>
 
 <style lang="scss">
@@ -10,10 +22,11 @@
         align-items: center;
         background-color: rgba(black, 0.3);
         /* border: 1px solid salmon; */
-
+        
         img.logo {
             width: 80px;
             opacity: 0.5;
+            cursor: pointer;
         }
     }
 </style>

@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { getLists, addList } from '~/api/api';
+import { getLists, addList } from '~/api';
 
 function createLists() {
 	const { subscribe, set } = writable([]);

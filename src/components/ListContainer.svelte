@@ -18,7 +18,7 @@
     .list-container {
         width: 100vw;
         height: calc(100vh - 40px);
-        border: 1px solid rosybrown;
+        // border: 1px solid rosybrown;
         padding: 30px;
         box-sizing: border-box;
         overflow-x: auto;
@@ -28,7 +28,7 @@
         .lists {
             display: inline-block;
             height: 100%;
-            border: 1px solid lightgoldenrodyellow;
+            // border: 1px solid lightgoldenrodyellow;
             box-sizing: border-box;
             white-space: nowrap;
         }
