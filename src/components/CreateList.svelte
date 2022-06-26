@@ -2,6 +2,7 @@
     import {tick} from 'svelte';
     import {lists} from '~/store/list';
     import { v4 as uuidv4 } from 'uuid';
+    import {autoFocusout} from '~/actions/autoFocusout';
 
     let isEditMode = false;
     let title = "";
@@ -31,7 +32,7 @@
 
 <div class="create-list">
     {#if isEditMode}
-    <div class="edit-mode">
+    <div use:autoFocusout={offEditMode} class="edit-mode">
         <textarea
             bind:value={title}
             bind:this={textareaEl}
@@ -43,7 +44,7 @@
             }}
         ></textarea>
         <div class="actions">
-            <div class="btn" on:click={addList}>
+            <div class="btn success" on:click={addList}>
                 Add List
             </div>
             <div class="btn" on:click={offEditMode}>
