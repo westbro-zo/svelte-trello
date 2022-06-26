@@ -1,12 +1,15 @@
 <script>
     import List from '~/components/List.svelte';
     import CreateList from '~/components/CreateList.svelte';
+    import { lists } from '~/store/list';
+
 </script>
 
 <div class="list-container">
     <div class="lists">
-        <List />
-        <List />
+        {#each $lists as list (list.id)}
+            <List {list} />
+        {/each}
     </div>
     <CreateList />
 </div>

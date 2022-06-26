@@ -1,5 +1,9 @@
-<div class="list">
+<script>
+    export let list;
+</script>
 
+<div class="list">
+    {list.title}
 </div>
 
 <style lang="scss">
