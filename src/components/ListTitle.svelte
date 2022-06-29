@@ -18,7 +18,7 @@
         }
         offEditMode();
     }
-    function removeTitle() {
+    function removeList() {
         // TODO: 리스트 제거
         // lists.remove({
         //     id: list.id
@@ -27,7 +27,7 @@
     }
     async function onEditMode() {
         isEditMode = true;
-        title = list.title;
+        // title = list.title;
         await tick();
         textareaEl && textareaEl.focus();
     }
@@ -53,7 +53,7 @@
         <div class="actions">
             <div class="btn success" on:click={saveTitle}>Save</div>
             <div class="btn" on:click={offEditMode}>Cancel</div>
-            <div class="btn danger" on:click={removeTitle}>Delete List</div>
+            <div class="btn danger" on:click={removeList}>Delete List</div>
         </div>
     </div>
 
