@@ -13,7 +13,7 @@ function createLists() {
 
 	return {
         subscribe,
-        add: async ({ title, id }) => {
+        add: async ({ title, id }) => { // TODO: push 형태로
             await addList(title, id).then(lists.reset());
         },
         reset

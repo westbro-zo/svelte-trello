@@ -1,6 +1,3 @@
-const UNSPLASH_API_URL = 'https://api.unsplash.com/photos';
-const UNSPLASH_ACCESS_KEY = 'eJiOO7TA0NnypxNu0h4NwI_Q5fqTtEJeH-ZZD-2ergs';
-
 const API_URL = 'http://localhost:3000';
 
 export const getLists = async () => {
@@ -32,7 +29,10 @@ export const addList = async (title, id) => {
 };
 
 export const setUnsplashRandomImage = async () => {
-    return await fetch(`${UNSPLASH_API_URL}/random?client_id=${UNSPLASH_ACCESS_KEY}`)
+    const UNSPLASH_ACCESS_KEY = 'eJiOO7TA0NnypxNu0h4NwI_Q5fqTtEJeH-ZZD-2ergs';
+
+    // UNSPLASH_API_URL 변수 고려
+    return await fetch(`https://api.unsplash.com/photos/random?client_id=${UNSPLASH_ACCESS_KEY}`)
     	.then(response => response.json())
     	.then(data => {
             Object.assign(document.body.style, {

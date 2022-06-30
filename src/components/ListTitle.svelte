@@ -45,7 +45,7 @@
             bind:value={title}
             bind:this={textareaEl}
             placeholder="Enter a title for this list..."
-            on:keydoen={event => {
+            on:keydown={event => {
                 event.key === 'Enter' && saveTitle()
                 event.key === 'Escape' && offEditMode()
                 event.key === 'Esc' && offEditMode()
