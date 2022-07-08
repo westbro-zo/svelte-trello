@@ -12,14 +12,20 @@ export const getLists = async () => {
 export const addList = async (title, id) => {
     return await fetch(`${API_URL}/lists`, {
             method: 'POST',
-            body: JSON.stringify({
-                id,
-                title,
-                cards: [],
-            }),
-            headers: {
-                "content-type": "application/json"
-            }
+            body: JSON.stringify({id, title, cards: []}),
+            headers: {"content-type": "application/json"}
+        })
+        .then(response => response.json())
+        .catch(error => {
+            console.error(error);
+            return [];
+        });
+};
+
+export const deleteList = async (id) => {
+    return await fetch(`${API_URL}/lists/${id}`, {
+            method: 'DELETE',
+            headers: {"content-type": "application/json"}
         })
         .then(response => response.json())
         .catch(error => {

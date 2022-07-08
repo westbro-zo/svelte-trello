@@ -19,10 +19,7 @@
         offEditMode();
     }
     function removeList() {
-        // TODO: 리스트 제거
-        // lists.remove({
-        //     id: list.id
-        // })
+        lists.remove({id: list.id});
         offEditMode();
     }
     async function onEditMode() {
