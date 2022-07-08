@@ -3,7 +3,7 @@
     import ListTitle from '~/components/ListTitle.svelte';
     import Card from '~/components/Card.svelte';
 
-    export let list;
+    export let list = [];
 </script>
 
 <div class="list">

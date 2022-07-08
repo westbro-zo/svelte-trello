@@ -10,11 +10,7 @@
 
     function saveTitle() {
         if (title.trim()) {
-            // TODO: 타이틀 수정
-            // lists.edit({
-            //     id: list.id,
-            //     title
-            // })
+            lists.edit({id: list.id, title});
         }
         offEditMode();
     }
@@ -24,7 +20,7 @@
     }
     async function onEditMode() {
         isEditMode = true;
-        // title = list.title;
+        title = list.title;
         await tick();
         textareaEl && textareaEl.focus();
     }
