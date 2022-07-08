@@ -2,7 +2,11 @@
     import List from '~/components/List.svelte';
     import CreateList from '~/components/CreateList.svelte';
     import { lists } from '~/store/list';
+    import { onMount } from 'svelte';
 
+    onMount(() => {
+        lists.reset();
+    })
 </script>
 
 <div class="list-container">

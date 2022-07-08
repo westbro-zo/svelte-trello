@@ -2,21 +2,20 @@ import { writable } from 'svelte/store';
 import { getLists, addList } from '~/api';
 
 function createLists() {
-	const { subscribe, set } = writable([]);
-    const reset = async () => {
-        const res = await getLists();
-    
-        set(res);
-    }
-
-    reset();
+	const { subscribe, set, update } = writable([]);
 
 	return {
         subscribe,
-        add: async ({ title, id }) => { // TODO: push 형태로
-            await addList(title, id).then(lists.reset());
+        add: async ({ title, id }) => {
+            await addList(title, id).then(res => {
+                update(lists => ([...lists, res]));
+            });
         },
-        reset
+        reset: async () => {
+            const res = await getLists();
+        
+            set(res);
+        }
 	};
 }
 
