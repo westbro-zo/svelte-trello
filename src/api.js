@@ -1,7 +1,7 @@
 const API_URL = 'http://localhost:3000';
 
 export const getLists = async () => {
-    return await fetch(`${API_URL}/lists?_sort=pos&_order=asc`)
+    return await fetch(`${API_URL}/lists?_embed=cards&_sort=pos&_order=asc`)
         .then(response => response.json())
         .catch(error => {
             console.error(error);
@@ -47,6 +47,18 @@ export const editList = async (id, body) => {
         });
 };
 
+export const addCard = async (id, title, listId) => {
+    return await fetch(`${API_URL}/lists/${listId}/cards`, {
+            method: 'POST',
+            body: JSON.stringify({id, title, listId}),
+            headers: {"content-type": "application/json"}
+        })
+        .then(response => response.json())
+        .catch(error => {
+            console.error(error);
+            return [];
+        });
+};
 
 export const setUnsplashRandomImage = async () => {
     const UNSPLASH_ACCESS_KEY = 'eJiOO7TA0NnypxNu0h4NwI_Q5fqTtEJeH-ZZD-2ergs';

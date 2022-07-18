@@ -31,7 +31,7 @@
 >
     <div class="list__inner" class:is-active={isActive}>
         <div class="list__heading">
-            <ListTitle {list} />
+            <ListTitle id={list.id} title={list.title} />
             <p>{list.cards.length} cards</p>
         </div>
         <div class="list__cards">
@@ -39,7 +39,7 @@
                 <Card {card}/>
             {/each}
         </div>
-        <CreateCard />
+        <CreateCard listId={list.id}/>
     </div>
 </div>
 

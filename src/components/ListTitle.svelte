@@ -3,24 +3,24 @@
     import {lists} from '~/store/list';
     import {autoFocusout} from '~/actions/autoFocusout';
 
-    export let list;
+    export let id;
+    export let title;
     let isEditMode = false;
-    let title = list.title;
     let textareaEl;
 
     function saveTitle() {
         if (title.trim()) {
-            lists.edit({id: list.id, title});
+            lists.edit({id: id, title});
         }
         offEditMode();
     }
     function removeList() {
-        lists.remove({id: list.id});
+        lists.remove({id});
         offEditMode();
     }
     async function onEditMode() {
         isEditMode = true;
-        title = list.title;
+        title = title;
         await tick();
         textareaEl && textareaEl.focus();
     }
@@ -52,7 +52,7 @@
 
 {:else}
     <h2 class="title">
-        {list.title}
+        {title}
         <div class="btn small edit-btn-for-list" on:click={onEditMode}>
             Edit
         </div>

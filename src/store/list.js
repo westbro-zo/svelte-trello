@@ -1,6 +1,5 @@
-import { writable, get } from 'svelte/store';
-import { getLists, addList, deleteList } from '~/api';
-import { editList } from '../api';
+import { writable } from 'svelte/store';
+import { getLists, addList, deleteList, editList } from '~/api';
 
 
 function createLists() {
@@ -58,6 +57,7 @@ function createLists() {
         
             set(res);
         },
+        update: () => update($lists => $lists)
 	};
 }
 
