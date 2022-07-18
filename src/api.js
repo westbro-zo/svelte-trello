@@ -1,7 +1,7 @@
 const API_URL = 'http://localhost:3000';
 
 export const getLists = async () => {
-    return await fetch(`${API_URL}/lists`)
+    return await fetch(`${API_URL}/lists?_sort=pos&_order=asc`)
         .then(response => response.json())
         .catch(error => {
             console.error(error);
@@ -9,10 +9,10 @@ export const getLists = async () => {
         });
 };
 
-export const addList = async (title, id) => {
+export const addList = async (title, id, pos) => {
     return await fetch(`${API_URL}/lists`, {
             method: 'POST',
-            body: JSON.stringify({id, title, cards: []}),
+            body: JSON.stringify({id, title, cards: [], pos}),
             headers: {"content-type": "application/json"}
         })
         .then(response => response.json())

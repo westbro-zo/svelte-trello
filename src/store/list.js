@@ -1,14 +1,15 @@
-import { writable } from 'svelte/store';
+import { writable, get } from 'svelte/store';
 import { getLists, addList, deleteList } from '~/api';
 import { editList } from '../api';
+
 
 function createLists() {
 	const { subscribe, set, update } = writable([]);
 
 	return {
         subscribe,
-        add: async ({ title, id }) => {
-            await addList(title, id).then(res => {
+        add: async ({ title, id, pos }) => {
+            await addList(title, id, pos).then(res => {
                 update($lists => {
                     $lists.push(res)
 
@@ -40,11 +41,23 @@ function createLists() {
                 });
             });
         },
+        reorder: async ({id, pos}) => {
+            await editList(id, {pos}).then((res) => {
+                update($lists => {
+                    const list = $lists.find(l => l.id === id);
+
+                    list.pos = res.pos;
+                    $lists.sort((x, y) => x.pos - y.pos);
+
+                    return $lists;
+                });
+            });
+        },
         reset: async () => {
             const res = await getLists();
         
             set(res);
-        }
+        },
 	};
 }
 

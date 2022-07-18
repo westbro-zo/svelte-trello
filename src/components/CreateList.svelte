@@ -12,7 +12,8 @@
         if (title.trim()) {
             lists.add({
                 id: uuidv4(),
-                title
+                title,
+                pos: $lists[$lists.length-1].pos + 100
             })
         }
         offEditMode();

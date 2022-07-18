@@ -2,11 +2,32 @@
     import CreateCard from '~/components/CreateCard.svelte';
     import ListTitle from '~/components/ListTitle.svelte';
     import Card from '~/components/Card.svelte';
+    import { createEventDispatcher } from 'svelte';
 
     export let list = [];
+    const dispatch = createEventDispatcher();
+
+    function dragStart(e) {
+        dispatch('dragStart', e);
+    }
+
+    function dragEnter(e) {
+        dispatch('dragEnter', e);
+    }
+
+    function drop(e) {
+        dispatch('drop', e);
+    }
 </script>
 
-<div class="list">
+<div
+    class="list"
+    draggable="true"
+    on:dragstart={dragStart}
+    on:dragEnter={dragEnter}
+    on:drop={drop}
+    ondragover="return false"
+>
     <div class="list__inner">
         <div class="list__heading">
             <ListTitle {list} />
