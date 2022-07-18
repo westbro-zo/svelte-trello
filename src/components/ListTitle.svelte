@@ -1,7 +1,7 @@
 <script>
     import { tick } from 'svelte';
-    import {lists} from '~/store/list';
-    import {autoFocusout} from '~/actions/autoFocusout';
+    import { lists } from '~/store/list';
+    import { autoFocusout } from '~/actions/autoFocusout';
 
     export let id;
     export let title;

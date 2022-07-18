@@ -56,7 +56,19 @@ export const addCard = async (id, title, listId) => {
         .then(response => response.json())
         .catch(error => {
             console.error(error);
-            return [];
+            return {};
+        });
+};
+
+export const deleteCard = async (id) => {
+    return await fetch(`${API_URL}/cards/${id}`, {
+            method: 'DELETE',
+            headers: {"content-type": "application/json"}
+        })
+        .then(response => response.json())
+        .catch(error => {
+            console.error(error);
+            return {};
         });
 };
 

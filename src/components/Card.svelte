@@ -1,9 +1,11 @@
 <script>
 import { tick } from "svelte";
+import { cards } from '~/store/card';
 import { autoFocusout } from "~/actions/autoFocusout";
 
 
     export let card;
+    export let listId;
     let isEditMode = false;
     let title;
     let textareaEl;
@@ -13,7 +15,8 @@ import { autoFocusout } from "~/actions/autoFocusout";
     }
 
     function removeCard() {
-
+        cards.remove({id: card.id, listId});
+        offEditMode();
     }
 
     async function onEditMode() {
