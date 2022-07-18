@@ -11,7 +11,10 @@ import { autoFocusout } from "~/actions/autoFocusout";
     let textareaEl;
 
     function saveCard() {
-
+        if (title.trim()) {
+            cards.edit({id: card.id, title, listId});
+        }
+        offEditMode();
     }
 
     function removeCard() {

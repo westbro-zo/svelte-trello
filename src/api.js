@@ -72,6 +72,19 @@ export const deleteCard = async (id) => {
         });
 };
 
+export const editCard = async (id, body) => {
+    return await fetch(`${API_URL}/cards/${id}`, {
+            method: 'PATCH',
+            body: JSON.stringify(body),
+            headers: {"content-type": "application/json"}
+        })
+        .then(response => response.json())
+        .catch(error => {
+            console.error(error);
+            return [];
+        });
+};
+
 export const setUnsplashRandomImage = async () => {
     const UNSPLASH_ACCESS_KEY = 'eJiOO7TA0NnypxNu0h4NwI_Q5fqTtEJeH-ZZD-2ergs';
 

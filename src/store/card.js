@@ -1,5 +1,5 @@
 import { get } from 'svelte/store';
-import { addCard, deleteCard } from '~/api';
+import { addCard, deleteCard, editCard } from '~/api';
 import { lists } from '~/store/list'
 
 export const cards = {
@@ -20,6 +20,15 @@ export const cards = {
                 list.cards.splice(index, 1);
             }
 
+            lists.update();
+        });
+    },
+    edit: ({ title, id, listId }) => {
+        editCard(id, {title}).then((res) => {
+            const list = get(lists).find(l => l.id === listId);
+            const card = list.cards.find(c => c.id === id);
+
+            card.title = res.title;
             lists.update();
         });
     },
