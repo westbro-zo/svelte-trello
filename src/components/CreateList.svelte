@@ -13,7 +13,7 @@
             lists.add({
                 id: uuidv4(),
                 title,
-                pos: $lists[$lists.length-1].pos + 100
+                pos: ($lists[$lists.length-1]?.pos || 0) + 100
             })
         }
         offEditMode();
