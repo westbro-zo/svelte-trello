@@ -4,7 +4,7 @@
     import { lists } from '~/store/list';
     import { onMount } from 'svelte';
 
-    let hovering = false;
+    let hovering;
 
     onMount(() => {
         lists.reset();
@@ -15,9 +15,6 @@
         // e.dataTransfer.dropEffect = 'move';
         const start = i;
         e.dataTransfer.setData('text/plain', start);
-    }
-
-    function dragEnter(e, i) {
     }
 
     function drop(e, i) {
@@ -54,8 +51,9 @@
         {#each $lists as list, index (list.id)}
             <List
                 {list}
+                isActive = {hovering === index}
                 on:dragStart={({detail: e}) => dragStart(e, index)}
-                on:dragEnter={({detail: e}) => dragEnter(e, index)}
+                on:dragEnter={() => hovering = index}
                 on:drop={({detail: e}) => drop(e, index)}
             />
         {/each}

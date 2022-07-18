@@ -5,6 +5,7 @@
     import { createEventDispatcher } from 'svelte';
 
     export let list = [];
+    export let isActive = null;
     const dispatch = createEventDispatcher();
 
     function dragStart(e) {
@@ -24,11 +25,11 @@
     class="list"
     draggable="true"
     on:dragstart={dragStart}
-    on:dragEnter={dragEnter}
+    on:dragenter={dragEnter}
     on:drop={drop}
     ondragover="return false"
 >
-    <div class="list__inner">
+    <div class="list__inner" class:is-active={isActive}>
         <div class="list__heading">
             <ListTitle {list} />
             <p>{list.cards.length} cards</p>
@@ -71,6 +72,10 @@
                     margin-bottom: 10px;
                 }
             }
+        }
+        .is-active {
+            background-color: #3273dc;
+            color: #fff;
         }
     }
 </style>
