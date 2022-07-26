@@ -2,44 +2,41 @@
     import CreateCard from '~/components/CreateCard.svelte';
     import ListTitle from '~/components/ListTitle.svelte';
     import Card from '~/components/Card.svelte';
-    import { createEventDispatcher } from 'svelte';
+    import { dragAndDrop } from '~/actions/dragAndDrop';
 
     export let list = [];
-    export let isActive = null;
-    const dispatch = createEventDispatcher();
-
-    function dragStart(e) {
-        dispatch('dragStart', e);
-    }
+    export let listIndex;
+    let hovering;
 
     function dragEnter(e) {
-        dispatch('dragEnter', e);
+        e.stopPropagation();
+
+        hovering = listIndex;
     }
 
-    function drop(e) {
-        dispatch('drop', e);
-    }
 </script>
 
 <div
     class="list"
     draggable="true"
-    on:dragstart={dragStart}
-    on:dragenter={dragEnter}
-    on:drop={drop}
+    use:dragAndDrop={{listIndex, listId: list.id, type: 'list'}}
     ondragover="return false"
 >
-    <div class="list__inner" class:is-active={isActive}>
+    <div class="list__inner" class:is-active={hovering === listIndex}>
         <div class="list__heading">
             <ListTitle id={list.id} title={list.title} />
             <p>{list.cards.length} cards</p>
         </div>
         <div class="list__cards">
-            {#each list.cards as card (card.id)}
-                <Card {card} listId={list.id}/>
+            {#each list.cards.sort((x, y) => x.pos - y.pos) as card, index (card.id)}
+                <Card
+                    {card}
+                    cardIndex={index}
+                    listId={list.id}
+                />
             {/each}
         </div>
-        <CreateCard listId={list.id}/>
+        <CreateCard listId={list.id} lastCardPos={list.cards[list.cards.length-1]?.pos}/>
     </div>
 </div>
 
@@ -60,6 +57,11 @@
             box-sizing: border-box;
             background: #ebecf0;
             border-radius: 4px;
+
+            &:hover {
+                background-color: darken(#ebecf0, 2%);
+
+            }
             .list__heading {
                 margin-bottom: 10px;
                 p {
@@ -74,8 +76,7 @@
             }
         }
         .is-active {
-            background-color: #3273dc;
-            color: #fff;
+            background-color: darken(#ebecf0, 10%);
         }
     }
 </style>

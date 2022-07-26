@@ -47,10 +47,10 @@ export const editList = async (id, body) => {
         });
 };
 
-export const addCard = async (id, title, listId) => {
+export const addCard = async (id, title, listId, pos) => {
     return await fetch(`${API_URL}/lists/${listId}/cards`, {
             method: 'POST',
-            body: JSON.stringify({id, title, listId}),
+            body: JSON.stringify({id, title, listId, pos}),
             headers: {"content-type": "application/json"}
         })
         .then(response => response.json())

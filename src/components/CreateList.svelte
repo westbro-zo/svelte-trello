@@ -1,8 +1,9 @@
 <script>
-    import {tick} from 'svelte';
-    import {lists} from '~/store/list';
+    import { tick } from 'svelte';
+    import { lists } from '~/store/list';
     import { v4 as uuidv4 } from 'uuid';
-    import {autoFocusout} from '~/actions/autoFocusout';
+    import { autoFocusout } from '~/actions/autoFocusout';
+    import { DEFAULT_POS } from '~/app.value'
 
     let isEditMode = false;
     let title = "";
@@ -13,7 +14,7 @@
             lists.add({
                 id: uuidv4(),
                 title,
-                pos: ($lists[$lists.length-1]?.pos || 0) + 100
+                pos: ($lists[$lists.length-1]?.pos || 0) + DEFAULT_POS
             })
         }
         offEditMode();

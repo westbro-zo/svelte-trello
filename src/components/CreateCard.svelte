@@ -1,20 +1,23 @@
 <script>
     import { tick } from 'svelte';
-    import { cards } from '~/store/card';
+    import { lists } from '~/store/list';
     import { v4 as uuidv4 } from 'uuid';
     import { autoFocusout } from '~/actions/autoFocusout';
+    import { DEFAULT_POS } from '~/app.value'
 
     export let listId;
+    export let lastCardPos;
     let isEditMode = false;
     let title = '';
     let textareaEl;
 
     function addCard() {
         if (title.trim()) {
-            cards.add({
+            lists.addCard({
                 listId,
                 title,
                 id: uuidv4(),
+                pos: (lastCardPos || 0) + DEFAULT_POS
             })
         }
 
