@@ -2,6 +2,7 @@
 import { get } from 'svelte/store';
 import { lists } from '~/store/list';
 import { DEFAULT_POS } from '~/app.value'
+import { v4 as uuidv4 } from 'uuid';
 
 export function dragAndDrop(el, params) {
     let listIndex = params.listIndex;
@@ -22,13 +23,28 @@ export function dragAndDrop(el, params) {
         // 시작(드래그 대상) 데이터
         const {start, type, listId: startListId, cardId} = JSON.parse(e.dataTransfer.getData("text/plain"));
 
+        // 시작 타입: 리스트
         if (type === 'list') {
             listToListDrop(parseInt(start), listIndex);
 
             return;
         }
 
+        // 시작 타입: 카드
         if (type === 'card') {
+            if (params.type === 'create') {
+                lists.addListAndCard({
+                    id: uuidv4(),
+                    oldId: startListId,
+                    title: 'undefined',
+                    pos: getNewPos(0, get(lists).length - 1, get(lists)),
+                    cardId,
+
+                })
+
+                return;
+            }
+
             // 같은 리스트로 카드 옮기기
             if (startListId === params.listId) {
                 cardToCardDrop(start, cardIndex, startListId);
@@ -38,7 +54,10 @@ export function dragAndDrop(el, params) {
 
             // 다른 리스트로 카드 옮기기
             cardToListDrop(cardId, cardIndex, params.listId, startListId);
+
+            return;
         }
+
     }
 
     setTimeout(() => {    

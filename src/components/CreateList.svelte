@@ -4,6 +4,7 @@
     import { v4 as uuidv4 } from 'uuid';
     import { autoFocusout } from '~/actions/autoFocusout';
     import { DEFAULT_POS } from '~/app.value'
+    import { dragAndDrop } from '~/actions/dragAndDrop';
 
     let isEditMode = false;
     let title = "";
@@ -55,7 +56,12 @@
         </div>
     </div>
     {:else}
-        <div class="add-another-list" on:click={onEditMode}>
+        <div
+            class="add-another-list"
+            on:click={onEditMode}
+            use:dragAndDrop={{type: 'create'}}
+            ondragover="return false"
+        >
             + Add another list
         </div>
     {/if}

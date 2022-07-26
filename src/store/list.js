@@ -123,6 +123,27 @@ function createLists() {
                 })
             });
         },
+        addListAndCard: async ({ title, id, oldId, pos, cardId }) => {
+            await addList(title, id, pos).then(res => {
+                editCard(cardId, {listId: id}).then((card) => {
+                    update($lists => {
+                        $lists.push(res);
+
+                        const oldlist = $lists.find(l => l.id === oldId);
+                        const list = $lists.find(l => l.id === id);
+                        const index = oldlist.cards.findIndex(card => card.id === cardId);
+            
+                        if (index > -1) {
+                            oldlist.cards.splice(index, 1);
+                        }
+
+                        list.cards.push(card);
+
+                        return $lists;
+                    })
+                });
+            });
+        },
 	};
 }
 
