@@ -31,13 +31,13 @@ export function dragAndDrop(el, params) {
         if (type === 'card') {
             // 같은 리스트로 카드 옮기기
             if (startListId === params.listId) {
-                cardToCardDrop(start, params.cardIndex, startListId);
-            } else {
-            // 다른 리스트로 카드 옮기기
-                cardToListDrop(cardId, params.cardIndex, params.listId, startListId);
+                cardToCardDrop(start, cardIndex, startListId);
+
+                return;
             }
-            
-            return ;
+
+            // 다른 리스트로 카드 옮기기
+            cardToListDrop(cardId, cardIndex, params.listId, startListId);
         }
     }
 
