@@ -25,7 +25,14 @@ export function dragAndDrop(el, params) {
 
         // 시작 타입: 리스트
         if (type === 'list') {
-            listToListDrop(parseInt(start), listIndex);
+            if (params.type === 'create') {
+                return;
+            }
+
+            // 도착 타입 card 와 list일 때
+            const index = listIndex !== undefined ? listIndex : get(lists).findIndex(list => list.id === params.listId);
+
+            listToListDrop(parseInt(start), index);
 
             return;
         }
@@ -45,24 +52,29 @@ export function dragAndDrop(el, params) {
                 return;
             }
 
+            const index = cardIndex !== undefined ? cardIndex : get(lists)[params.listIndex].cards.length - 1;
+
             // 같은 리스트로 카드 옮기기
             if (startListId === params.listId) {
-                cardToCardDrop(start, cardIndex, startListId);
+                cardToCardDrop(start, index, startListId);
 
                 return;
             }
 
             // 다른 리스트로 카드 옮기기
-            cardToListDrop(cardId, cardIndex, params.listId, startListId);
+            cardToListDrop(cardId, index, params.listId, startListId);
 
             return;
         }
 
     }
 
+    const dragOver = e => e.preventDefault();
+
     setTimeout(() => {    
         el.addEventListener('dragstart', dragStart);
         el.addEventListener('drop', drop);
+        el.addEventListener('dragover', dragOver);
     });
 
     return {
@@ -73,6 +85,7 @@ export function dragAndDrop(el, params) {
         destroy() {
             el.removeEventListener('dragstart', dragStart);
             el.removeEventListener('drop', drop);
+            el.removeEventListener('dragover', dragOver);
         }
     }
 }

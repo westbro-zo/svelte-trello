@@ -20,7 +20,6 @@
     class="list"
     draggable="true"
     use:dragAndDrop={{listIndex, listId: list.id, type: 'list'}}
-    ondragover="return false"
 >
     <div class="list__inner" class:is-active={hovering === listIndex}>
         <div class="list__heading">

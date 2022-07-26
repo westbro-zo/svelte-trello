@@ -123,8 +123,8 @@ function createLists() {
                 })
             });
         },
-        addListAndCard: async ({ title, id, oldId, pos, cardId }) => {
-            await addList(title, id, pos).then(res => {
+        addListAndCard: ({ title, id, oldId, pos, cardId }) => {
+            addList(title, id, pos).then(res => {
                 editCard(cardId, {listId: id}).then((card) => {
                     update($lists => {
                         $lists.push(res);

@@ -60,7 +60,6 @@
             class="add-another-list"
             on:click={onEditMode}
             use:dragAndDrop={{type: 'create'}}
-            ondragover="return false"
         >
             + Add another list
         </div>

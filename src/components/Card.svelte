@@ -41,7 +41,6 @@
     class="card"
     draggable="true"
     use:dragAndDrop={{type: 'card', cardIndex, listId, cardId: card.id}}
-    ondragover="return false"
 >
     {#if isEditMode}
         <div
