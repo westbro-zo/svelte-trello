@@ -3,7 +3,7 @@
     import { lists } from '~/store/list';
     import { v4 as uuidv4 } from 'uuid';
     import { autoFocusout } from '~/actions/autoFocusout';
-    import { DEFAULT_POS } from '~/app.value'
+    import { DEFAULT_POS, dndAction } from '~/app.value'
     import { dragAndDrop } from '~/actions/dragAndDrop';
 
     let isEditMode = false;
@@ -59,7 +59,7 @@
         {:else}
             <div
                 on:click={onEditMode}
-                use:dragAndDrop={{type: 'create'}}
+                use:dragAndDrop={{type: dndAction.CREATE}}
             >
                 + Add another list
             </div>
@@ -67,7 +67,7 @@
     </div>
     <div
         class="cr-list"
-        use:dragAndDrop={{type: 'delete'}}
+        use:dragAndDrop={{type: dndAction.DELETE}}
     >
         - <span class="r-list">Drop here to</span> Remove
     </div>

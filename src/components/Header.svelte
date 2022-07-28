@@ -21,7 +21,6 @@
         justify-content: center;
         align-items: center;
         background-color: rgba(black, 0.3);
-        /* border: 1px solid salmon; */
         
         img.logo {
             width: 80px;

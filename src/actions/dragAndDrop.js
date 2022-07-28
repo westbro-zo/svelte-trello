@@ -1,7 +1,7 @@
 
 import { get } from 'svelte/store';
 import { lists } from '~/store/list';
-import { DEFAULT_POS } from '~/app.value'
+import { DEFAULT_POS, dndType, dndAction } from '~/app.value'
 import { v4 as uuidv4 } from 'uuid';
 
 export function dragAndDrop(el, params) {
@@ -24,12 +24,12 @@ export function dragAndDrop(el, params) {
         const {start, type, listId: startListId, cardId} = JSON.parse(e.dataTransfer.getData("text/plain"));
 
         // 시작 타입: 리스트
-        if (type === 'list') {
-            if (params.type === 'create') {
+        if (type === dndType.LIST) {
+            if (params.type === dndAction.CREATE) {
                 return;
             }
 
-            if (params.type === 'delete') {
+            if (params.type === dndAction.DELETE) {
                 lists.remove({id: startListId});
 
                 return;
@@ -44,8 +44,8 @@ export function dragAndDrop(el, params) {
         }
 
         // 시작 타입: 카드
-        if (type === 'card') {
-            if (params.type === 'create') {
+        if (type === dndType.CARD) {
+            if (params.type === dndAction.CREATE) {
                 lists.addListAndCard({
                     id: uuidv4(),
                     oldId: startListId,
@@ -58,7 +58,7 @@ export function dragAndDrop(el, params) {
                 return;
             }
 
-            if (params.type === 'delete') {
+            if (params.type === dndAction.DELETE) {
                 lists.removeCard({id: cardId, listId: startListId});
 
                 return;

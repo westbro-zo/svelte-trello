@@ -3,6 +3,7 @@
     import { lists } from '~/store/list';
     import { autoFocusout } from "~/actions/autoFocusout";
     import { dragAndDrop } from '~/actions/dragAndDrop';
+    import { dndType } from '~/app.value'
 
     export let card;
     export let listId;
@@ -10,7 +11,6 @@
     let isEditMode = false;
     let title;
     let textareaEl;
-    let hovering;
 
     function saveCard() {
         if (title.trim()) {
@@ -40,13 +40,12 @@
 <div 
     class="card"
     draggable="true"
-    use:dragAndDrop={{type: 'card', cardIndex, listId, cardId: card.id}}
+    use:dragAndDrop={{type: dndType.CARD, cardIndex, listId, cardId: card.id}}
 >
     {#if isEditMode}
         <div
             use:autoFocusout={offEditMode}
             class="edit-mode"
-            class:is-active={hovering === cardIndex}
         >
             <textarea
                 bind:value={title}

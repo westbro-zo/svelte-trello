@@ -3,31 +3,26 @@
     import ListTitle from '~/components/ListTitle.svelte';
     import Card from '~/components/Card.svelte';
     import { dragAndDrop } from '~/actions/dragAndDrop';
+    import { dndType } from '~/app.value'
 
     export let list = [];
     export let listIndex;
-    let hovering;
 
-    function dragEnter(e) {
-        e.stopPropagation();
-
-        hovering = listIndex;
-    }
-
+    $: sortCard = list.cards.sort((x, y) => x.pos - y.pos);
 </script>
 
 <div
     class="list"
     draggable="true"
-    use:dragAndDrop={{listIndex, listId: list.id, type: 'list'}}
+    use:dragAndDrop={{listIndex, listId: list.id, type: dndType.LIST }}
 >
-    <div class="list__inner" class:is-active={hovering === listIndex}>
+    <div class="list__inner">
         <div class="list__heading">
             <ListTitle id={list.id} title={list.title} />
             <p>{list.cards.length} cards</p>
         </div>
         <div class="list__cards">
-            {#each list.cards.sort((x, y) => x.pos - y.pos) as card, index (card.id)}
+            {#each sortCard as card, index (card.id)}
                 <Card
                     {card}
                     cardIndex={index}

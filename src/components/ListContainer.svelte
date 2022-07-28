@@ -8,8 +8,6 @@
         lists.reset();
     })
 
-    let hovering;
-
 </script>
 
 <div class="list-container">
@@ -18,7 +16,6 @@
             <List
                 {list}
                 listIndex={index}
-                {hovering}
             />
         {/each}
     </div>
