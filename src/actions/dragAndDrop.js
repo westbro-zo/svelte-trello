@@ -83,11 +83,9 @@ export function dragAndDrop(el, params) {
 
     const dragOver = e => e.preventDefault();
 
-    setTimeout(() => {    
-        el.addEventListener('dragstart', dragStart);
-        el.addEventListener('drop', drop);
-        el.addEventListener('dragover', dragOver);
-    });
+    el.addEventListener('dragstart', dragStart);
+    el.addEventListener('drop', drop);
+    el.addEventListener('dragover', dragOver);
 
     return {
         update(params) {
