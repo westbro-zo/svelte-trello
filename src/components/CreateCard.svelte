@@ -48,7 +48,7 @@
                 event.key === 'Esc' && offEditMode()
         }}></textarea>
         <div class="actions">
-            <div class="btn" on:click={addCard}>
+            <div class="btn success" on:click={addCard}>
                 Add card
             </div>
             <div class="btn" on:click={offEditMode}>
@@ -69,9 +69,14 @@
         color: #5e6c84;
         cursor: pointer;
         border-radius: 4px;
+        margin-top: 8px;
         &:hover {
             background: rgba(9, 30, 66, .08);
             color: #172b4d;
         }
+    }
+
+    .edit-mode {
+        margin-top: 8px;
     }
 </style>
