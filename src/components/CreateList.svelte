@@ -33,56 +33,71 @@
     }
 </script>
 
-<div class="create-list">
-    {#if isEditMode}
-    <div use:autoFocusout={offEditMode} class="edit-mode">
-        <textarea
-            bind:value={title}
-            bind:this={textareaEl}
-            placeholder="Enter a title for this list..."    
-            on:keydown={event => {
-                event.key === 'Enter' && addList()
-                event.key === 'Escape' && offEditMode()
-                event.key === 'Esc' && offEditMode() // MS 브라우저들 엣지, IE
-            }}
-        ></textarea>
-        <div class="actions">
-            <div class="btn success" on:click={addList}>
-                Add List
-            </div>
-            <div class="btn" on:click={offEditMode}>
-                Cancel
+<div class="cr-buttons">
+    <div class="cr-list">
+        {#if isEditMode}
+        <div use:autoFocusout={offEditMode} class="edit-mode">
+            <textarea
+                bind:value={title}
+                bind:this={textareaEl}
+                placeholder="Enter a title for this list..."
+                on:keydown={event => {
+                    event.key === 'Enter' && addList()
+                    event.key === 'Escape' && offEditMode()
+                    event.key === 'Esc' && offEditMode() // MS 브라우저들 엣지, IE
+                }}
+            ></textarea>
+            <div class="actions">
+                <div class="btn success" on:click={addList}>
+                    Add List
+                </div>
+                <div class="btn" on:click={offEditMode}>
+                    Cancel
+                </div>
             </div>
         </div>
+        {:else}
+            <div
+                on:click={onEditMode}
+                use:dragAndDrop={{type: 'create'}}
+            >
+                + Add another list
+            </div>
+        {/if}
     </div>
-    {:else}
-        <div
-            class="add-another-list"
-            on:click={onEditMode}
-            use:dragAndDrop={{type: 'create'}}
-        >
-            + Add another list
-        </div>
-    {/if}
+    <div
+        class="cr-list"
+        use:dragAndDrop={{type: 'delete'}}
+    >
+        - <span class="r-list">Drop here to</span> Remove
+    </div>
 </div>
 
 <style lang="scss">
-    .create-list {
+    .cr-buttons {
+        display: inline-block;
+        vertical-align: top;
+    }
+    .cr-list {
         white-space: normal;
         width: 290px;
-        display: inline-block;
         padding: 10px 8px;
-        vertical-align: top;
         background: rgba(#ebecf0, .6);
         border-radius: 4px;
-        margin: 0 4px;
+        margin: 0 4px 10px 4px;
         line-height: 20px;
         cursor: pointer;
         transition: .2s;
 
         &:hover {
             background: #ebecf0;
+            & .r-list {
+                display: inline-block;
+            }
         }
     }
 
+    .r-list {
+        display: none;
+    }
 </style>

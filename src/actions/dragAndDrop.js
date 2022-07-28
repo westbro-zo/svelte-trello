@@ -29,6 +29,12 @@ export function dragAndDrop(el, params) {
                 return;
             }
 
+            if (params.type === 'delete') {
+                lists.remove({id: startListId});
+
+                return;
+            }
+
             // 도착 타입 card 와 list일 때
             const index = listIndex !== undefined ? listIndex : get(lists).findIndex(list => list.id === params.listId);
 
@@ -48,6 +54,12 @@ export function dragAndDrop(el, params) {
                     cardId,
 
                 })
+
+                return;
+            }
+
+            if (params.type === 'delete') {
+                lists.removeCard({id: cardId, listId: startListId});
 
                 return;
             }
