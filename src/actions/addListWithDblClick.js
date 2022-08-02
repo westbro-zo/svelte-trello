@@ -11,7 +11,7 @@ export function addListWithDblClick(el, hidePopup) {
         const cursorY = e.clientY - HEADER_HEIGHT;
 
         hidePopup(false);
-        addElement(cursorX, cursorY);
+        addElement(el, cursorX, cursorY);
     }
 
     el.addEventListener('dblclick', handleDblClick);
@@ -23,22 +23,18 @@ export function addListWithDblClick(el, hidePopup) {
     }
 }
 
-function addElement(x, y) {
-    const popupEl = document.getElementById('popup');
+function addElement(el, x, y) {
+    const popupEl = el.querySelector('.popup');
     const positionEl = popupEl.querySelector('.position');
     const popupTitleEl = popupEl.querySelector('.popup_title');
-
-    popupEl.setAttribute("class", "popup show edit-mode");
-    popupEl.style.cssText = `top:${y}px; left:${x}px;`
-
     const position = getPosition(x);
+
+    popupEl.style.cssText = `top:${y}px; left:${x}px;`
 
     positionEl.value = `${position}`;
     positionEl.setAttribute('value', position);
-    
     popupTitleEl.focus();
 }
-
 
 function getPosition(x) {
     let pos;

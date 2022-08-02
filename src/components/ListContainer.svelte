@@ -57,7 +57,7 @@
         {/each}
     </div>
     <CreateList />
-    <div id="popup" class="{popupClass}">
+    <div class="{popupClass}">
         <div class="list__heading">Add List</div>
         <textarea class="popup_title" bind:value={title}></textarea>
         <div class="actions">
