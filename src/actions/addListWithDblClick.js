@@ -2,7 +2,7 @@
 import { get } from 'svelte/store';
 import { lists } from '~/store/list';
 
-export function addListWithDblClick(el) {
+export function addListWithDblClick(el, hidePopup) {
     const handleDblClick = (e) => {
         e.stopPropagation();
 
@@ -10,6 +10,7 @@ export function addListWithDblClick(el) {
         const cursorX = e.clientX + el.scrollLeft;
         const cursorY = e.clientY - HEADER_HEIGHT;
 
+        hidePopup(false);
         addElement(cursorX, cursorY);
     }
 

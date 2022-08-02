@@ -7,21 +7,16 @@
     import { v4 as uuidv4 } from 'uuid';
     import { DEFAULT_POS } from '~/app.value'
 
-    let hidePopup = true;
+    let showPopup = false;
     let title = "New List";
     let positionEl;
 
+    $: popupClass = showPopup ? "popup show edit-mode" : "popup hide edit-mode"
     $: sortList = $lists.sort((x, y) => x.pos - y.pos);
 
     onMount(() => {
         lists.reset();
     })
-
-    function cancel() {
-        // FIXME: 수정 필요
-        console.log('cancel');
-        hidePopup = true;
-    }
 
     function addList() {
         const index = Number(positionEl.value) - 1;
@@ -35,7 +30,12 @@
             })
         }
 
-        hidePopup = true;
+        hidePopup(true);
+    }
+
+    function hidePopup(flag = true) {
+        showPopup = !flag;
+        title = "New List";
     }
 
     function getNewPos(index, arr) {
@@ -47,7 +47,7 @@
 
 </script>
 
-<div class="list-container" use:addListWithDblClick={addList}>
+<div class="list-container" use:addListWithDblClick={hidePopup}>
     <div class="lists">
         {#each sortList as list, index (list.id)}
             <List
@@ -57,14 +57,14 @@
         {/each}
     </div>
     <CreateList />
-    <div id="popup" class="popup" class:hide="{hidePopup === true}">
+    <div id="popup" class="{popupClass}">
         <div class="list__heading">Add List</div>
         <textarea class="popup_title" bind:value={title}></textarea>
         <div class="actions">
             <div class="btn success" on:click={addList}>
                 Add card
             </div>
-            <div class="btn" on:click={cancel}>
+            <div class="btn" on:click={hidePopup}>
                 Cancel
             </div>
             <div class="pos__text">
@@ -96,12 +96,18 @@
     :global(.popup) {
         position: absolute;
         width: 290px;
-        height: 100px;
+        height: 110px;
         display: flex;
         flex-direction: column;
         padding: 8px;
         background: #ebecf0;
         border-radius: 4px;
+
+        .list__heading {
+            font-weight: 700;
+            padding: 4px 8px;
+            margin-bottom: 4px;
+        }
 
         .pos__text {
             display: inline-block;
