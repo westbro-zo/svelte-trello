@@ -15,6 +15,7 @@
     class="list"
     draggable="true"
     use:dragAndDrop={{listIndex, listId: list.id, type: dndType.LIST }}
+    on:dblclick={(e) => e.stopPropagation()}
 >
     <div class="list__inner">
         <div class="list__heading">

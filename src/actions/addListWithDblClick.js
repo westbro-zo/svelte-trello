@@ -13,12 +13,19 @@ export function addListWithDblClick(el, hidePopup) {
         hidePopup(false);
         addElement(el, cursorX, cursorY);
     }
+    const clickOutsidePopupEl = e => {
+        if (!el.querySelector('.popup').contains(e.target)) {
+            hidePopup(true);
+        }
+    };
 
     el.addEventListener('dblclick', handleDblClick);
+    window.addEventListener('click', clickOutsidePopupEl);
 
     return {
         destroy() {
             el.removeEventListener('dblclick', handleDblClick);
+            window.removeEventListener('click', clickOutsidePopupEl);
         }
     }
 }
@@ -26,16 +33,16 @@ export function addListWithDblClick(el, hidePopup) {
 function addElement(el, x, y) {
     const popupEl = el.querySelector('.popup');
     const positionEl = popupEl.querySelector('.position');
-    const popupTitleEl = popupEl.querySelector('.popup_title');
     const position = getPosition(x);
 
     popupEl.style.cssText = `top:${y}px; left:${x}px;`
 
     positionEl.value = `${position}`;
     positionEl.setAttribute('value', position);
-    popupTitleEl.focus();
 }
 
+
+// elementFromPoint 로 할 수 있을까?
 function getPosition(x) {
     let pos;
 

@@ -1,4 +1,5 @@
 <script>
+    import { afterUpdate } from 'svelte';
     import List from '~/components/List.svelte';
     import CreateList from '~/components/CreateList.svelte';
     import { lists } from '~/store/list';
@@ -10,6 +11,7 @@
     let showPopup = false;
     let title = "New List";
     let positionEl;
+    let textareaEl;
 
     $: popupClass = showPopup ? "popup show edit-mode" : "popup hide edit-mode"
     $: sortList = $lists.sort((x, y) => x.pos - y.pos);
@@ -17,6 +19,12 @@
     onMount(() => {
         lists.reset();
     })
+
+    afterUpdate(() => {
+	    if (showPopup && textareaEl) {
+            textareaEl.focus();
+        }
+    });
 
     function addList() {
         const index = Number(positionEl.value) - 1;
@@ -44,7 +52,6 @@
 
         return (prevPos + nextPos) / 2;
     }
-
 </script>
 
 <div class="list-container" use:addListWithDblClick={hidePopup}>
@@ -59,7 +66,15 @@
     <CreateList />
     <div class="{popupClass}">
         <div class="list__heading">Add List</div>
-        <textarea class="popup_title" bind:value={title}></textarea>
+        <textarea
+            class="popup_title"
+            bind:value={title}
+            bind:this={textareaEl}
+            on:keydown={event => {
+                event.key === 'Enter' && addList()
+                event.key === 'Escape' && hidePopup()
+                event.key === 'Esc' && hidePopup()
+        }}></textarea>
         <div class="actions">
             <div class="btn success" on:click={addList}>
                 Add card
